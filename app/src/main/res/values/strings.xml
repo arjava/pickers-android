@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Pickers Android</string>
+    <string name="date_picker">Date Picker</string>
+    <string name="time_picker">Time Picker</string>
 </resources>
