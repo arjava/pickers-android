@@ -8,4 +8,5 @@
     <string name="date_picker_widget">Date Picker Widget</string>
     <string name="time_picker_widget">Time Picker Widget</string>
     <string name="submit_date">Submit Date</string>
+    <string name="submit_time">Submit Time</string>
 </resources>

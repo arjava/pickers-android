@@ -1,9 +1,9 @@
 package com.arjava.pickersandroid.pickers;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
@@ -17,6 +17,7 @@ import java.util.Objects;
 public class DatePickerActivity extends AppCompatActivity {
 
     DatePicker simpleDatePicker;
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,9 @@ public class DatePickerActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             finish();
-        }else {
+        } else {
             super.onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -49,12 +50,12 @@ public class DatePickerActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onClick(View view) {
-        int day = simpleDatePicker.getDayOfMonth(); // get the selected day of the month
-        int month = simpleDatePicker.getMonth()+1; // get the selected month
-        int year = simpleDatePicker.getYear(); // get the selected year
-        int firstDay = simpleDatePicker.getFirstDayOfWeek(); // get the first day of the week
-        Toast.makeText(this, "DAY "+String.valueOf(day)+" MONTH "+String.valueOf(month)+
-                        " YEAR "+String.valueOf(year)+" FIRSTDAY OF WEEK "+String.valueOf(firstDay)
-                ,Toast.LENGTH_LONG).show();
+        int day = simpleDatePicker.getDayOfMonth();
+        int month = simpleDatePicker.getMonth() + 1;
+        int year = simpleDatePicker.getYear();
+        int firstDay = simpleDatePicker.getFirstDayOfWeek();
+        Toast.makeText(this, "DAY " + String.valueOf(day) + " MONTH " + String.valueOf(month) +
+                        " YEAR " + String.valueOf(year) + " FIRSTDAY OF WEEK " + String.valueOf(firstDay)
+                , Toast.LENGTH_LONG).show();
     }
 }

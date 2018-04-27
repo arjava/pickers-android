@@ -1,12 +1,11 @@
 package com.arjava.pickersandroid;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateFormat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,14 +17,17 @@ import com.arjava.pickersandroid.pickers.DatePickerFragment;
 import com.arjava.pickersandroid.pickers.TimePickerActivity;
 import com.arjava.pickersandroid.pickers.TimePickerFragment;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     TextView textOutput;
     Button btnDatePicker, btnTimePicker, btnDatePickerSimple, btnTimePickerSimple, btnDatePickerWidget, btnTimePickerWidget;
+    Calendar newCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        DialogFragment newFragment;
-        Calendar newCalendar = Calendar.getInstance();
 
-
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnDatepickerWidget:
 
                 startActivity(new Intent(this, DatePickerActivity.class));
@@ -62,8 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnDatepicker:
 
                 //cara 1
-                newFragment = new DatePickerFragment();
-                newFragment.show(getSupportFragmentManager(), "DatePicker");
+                datePicker(view);
 
                 break;
             case R.id.btnDatepickerSimple:
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         textOutput.setText(dateFormatter.format(newDate.getTime()));
                     }
 
-                },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+                }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
                 datePickerDialog.show();
                 break;
@@ -91,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnTimepicker:
 
                 //cara 1
-                newFragment = new TimePickerFragment();
-                newFragment.show(getSupportFragmentManager(), "TimePicker");
+                timePicker(view);
 
                 break;
             case R.id.btnTimepickerSimple:
@@ -101,15 +98,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hour, int minute) {
-                        Calendar newDate = Calendar.getInstance();
-                        newDate.set(hour, minute);
+                        Calendar newTime = Calendar.getInstance();
+                        newTime.set(Calendar.HOUR_OF_DAY, hour);
+                        newTime.set(Calendar.MINUTE, minute);
                         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                        textOutput.setText(timeFormatter.format(newDate.getTime()));
+                        textOutput.setText(timeFormatter.format(newTime.getTime()));
                     }
-                },newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(this));
+                }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), false);
                 timePickerDialog.show();
                 break;
         }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+        Calendar cal = new GregorianCalendar(year, month, day);
+        setDate(cal);
+    }
+
+    private void setDate(final Calendar calendar) {
+        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        textOutput.setText(dateFormat.format(calendar.getTime()));
+
+    }
+
+    public void datePicker(View view) {
+        DatePickerFragment fragment = new DatePickerFragment();
+        fragment.show(getSupportFragmentManager(), "DatePickerDialog");
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+        newCalendar.set(Calendar.HOUR_OF_DAY, hour);
+        newCalendar.set(Calendar.MINUTE, minute);
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        textOutput.setText(timeFormatter.format(newCalendar.getTime()));
+    }
+
+    public void timePicker(View view) {
+        TimePickerFragment fragment = new TimePickerFragment();
+        fragment.show(getSupportFragmentManager(), TimePickerDialog.class.getSimpleName());
     }
 
 }
