@@ -5,21 +5,23 @@ import android.app.TimePickerDialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.arjava.pickersandroid.pickers.DatePickerFragment;
 import com.arjava.pickersandroid.pickers.TimePickerFragment;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    TextView textOutput;
     Button btnDatePicker, btnTimePicker, btnDatePickerSimple, btnTimePickerSimple;
 
     @Override
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        textOutput = findViewById(R.id.textOutput);
         btnDatePicker = findViewById(R.id.btnDatepicker);
         btnTimePicker = findViewById(R.id.btnTimepicker);
         btnDatePickerSimple = findViewById(R.id.btnDatepickerSimple);
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (view.getId()){
             case R.id.btnDatepicker:
+
                 //cara 1
                 newFragment = new DatePickerFragment();
                 newFragment.show(getSupportFragmentManager(), "DatePicker");
@@ -54,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnDatepickerSimple:
 
                 //cara 2
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
 
                     @Override
@@ -62,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         Calendar newDate = Calendar.getInstance();
                         newDate.set(year, monthOfYear, dayOfMonth);
-                        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+                        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault());
+                        textOutput.setText(dateFormatter.format(newDate.getTime()));
                     }
 
                 },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -70,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 datePickerDialog.show();
                 break;
             case R.id.btnTimepicker:
+
                 //cara 1
                 newFragment = new TimePickerFragment();
                 newFragment.show(getSupportFragmentManager(), "TimePicker");
@@ -81,9 +86,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hour, int minute) {
-                        //ketika waktu telah dipilih
+                        Calendar newDate = Calendar.getInstance();
+                        newDate.set(hour, minute);
+                        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                        textOutput.setText(timeFormatter.format(newDate.getTime()));
                     }
-                },newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), android.text.format.DateFormat.is24HourFormat(this));
+                },newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(this));
                 timePickerDialog.show();
                 break;
         }
