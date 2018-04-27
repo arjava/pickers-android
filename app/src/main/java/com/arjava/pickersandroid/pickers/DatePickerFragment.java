@@ -24,9 +24,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            return new DatePickerDialog(Objects.requireNonNull(getActivity()), this, year, month, day);
-        }
         return new DatePickerDialog(Objects.requireNonNull(getActivity()), this, year, month, day);
     }
 

@@ -2,4 +2,7 @@
     <string name="app_name">Pickers Android</string>
     <string name="date_picker">Date Picker</string>
     <string name="time_picker">Time Picker</string>
+    <string name="date_picker_simple">DatePicker Simple</string>
+    <string name="time_picker_simple">TimePicker Simple</string>
+    <string name="output_value_picker">Output Value Picker</string>
 </resources>
