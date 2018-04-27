@@ -2,6 +2,7 @@ package com.arjava.pickersandroid;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,9 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.arjava.pickersandroid.pickers.DatePickerActivity;
 import com.arjava.pickersandroid.pickers.DatePickerFragment;
+import com.arjava.pickersandroid.pickers.TimePickerActivity;
 import com.arjava.pickersandroid.pickers.TimePickerFragment;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +25,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView textOutput;
-    Button btnDatePicker, btnTimePicker, btnDatePickerSimple, btnTimePickerSimple;
+    Button btnDatePicker, btnTimePicker, btnDatePickerSimple, btnTimePickerSimple, btnDatePickerWidget, btnTimePickerWidget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +37,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnTimePicker = findViewById(R.id.btnTimepicker);
         btnDatePickerSimple = findViewById(R.id.btnDatepickerSimple);
         btnTimePickerSimple = findViewById(R.id.btnTimepickerSimple);
+        btnDatePickerWidget = findViewById(R.id.btnDatepickerWidget);
+        btnTimePickerWidget = findViewById(R.id.btnTimepickerWidget);
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         btnDatePickerSimple.setOnClickListener(this);
         btnTimePickerSimple.setOnClickListener(this);
+        btnDatePickerWidget.setOnClickListener(this);
+        btnTimePickerWidget.setOnClickListener(this);
     }
 
     @Override
@@ -48,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         switch (view.getId()){
+            case R.id.btnDatepickerWidget:
+
+                startActivity(new Intent(this, DatePickerActivity.class));
+                break;
             case R.id.btnDatepicker:
 
                 //cara 1
@@ -72,6 +83,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
                 datePickerDialog.show();
+                break;
+            case R.id.btnTimepickerWidget:
+
+                startActivity(new Intent(this, TimePickerActivity.class));
                 break;
             case R.id.btnTimepicker:
 

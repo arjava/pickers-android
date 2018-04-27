@@ -5,4 +5,7 @@
     <string name="date_picker_simple">DatePicker Simple</string>
     <string name="time_picker_simple">TimePicker Simple</string>
     <string name="output_value_picker">Output Value Picker</string>
+    <string name="date_picker_widget">Date Picker Widget</string>
+    <string name="time_picker_widget">Time Picker Widget</string>
+    <string name="submit_date">Submit Date</string>
 </resources>
