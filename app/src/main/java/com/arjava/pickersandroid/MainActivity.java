@@ -77,13 +77,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnDatepicker:
 
-                //cara 1
                 datePicker(view);
-
                 break;
             case R.id.btnDatepickerSimple:
 
-                //cara 2
                 DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
 
                     @Override
@@ -96,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
 
                 }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
                 datePickerDialog.show();
                 break;
             case R.id.btnTimepickerWidget:
@@ -105,13 +101,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnTimepicker:
 
-                //cara 1
                 timePicker(view);
-
                 break;
             case R.id.btnTimepickerSimple:
 
-                //cara 2
                 TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hour, int minute) {
@@ -168,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("StringFormatMatches")
     @Override
     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-        textOutput.setText(getString(R.string.calendar_date_picker, year+1, monthOfYear, dayOfMonth));
+        textOutput.setText(getString(R.string.calendar_date_picker, year + 1, monthOfYear, dayOfMonth));
     }
 
     @Override
