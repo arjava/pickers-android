@@ -9,4 +9,8 @@
     <string name="time_picker_widget">Time Picker Widget</string>
     <string name="submit_date">Submit Date</string>
     <string name="submit_time">Submit Time</string>
+    <string name="datepicker_library">DatePicker Library</string>
+    <string name="timepicker_library">TimePicker Library</string>
+    <string name="times_radial_picker">%1$d:%2$d</string>
+    <string name="calendar_date_picker">Year: %1$s\nMonth: %2$s\nDay: %3$s</string>
 </resources>

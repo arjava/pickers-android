@@ -16,6 +16,8 @@ import com.arjava.pickersandroid.pickers.DatePickerActivity;
 import com.arjava.pickersandroid.pickers.DatePickerFragment;
 import com.arjava.pickersandroid.pickers.TimePickerActivity;
 import com.arjava.pickersandroid.pickers.TimePickerFragment;
+import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
+import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,10 +25,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,
+        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
+        CalendarDatePickerDialogFragment.OnDateSetListener, RadialTimePickerDialogFragment.OnTimeSetListener {
 
     TextView textOutput;
-    Button btnDatePicker, btnTimePicker, btnDatePickerSimple, btnTimePickerSimple, btnDatePickerWidget, btnTimePickerWidget;
+    Button btnDatePicker, btnTimePicker, btnDatePickerSimple, btnTimePickerSimple,
+            btnDatePickerWidget, btnTimePickerWidget, btnDatePickerLibrary, btnTimePickerLibrary;
     Calendar newCalendar = Calendar.getInstance();
 
     @Override
@@ -41,12 +46,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnTimePickerSimple = findViewById(R.id.btnTimepickerSimple);
         btnDatePickerWidget = findViewById(R.id.btnDatepickerWidget);
         btnTimePickerWidget = findViewById(R.id.btnTimepickerWidget);
+        btnDatePickerLibrary = findViewById(R.id.datePickerLibrary);
+        btnTimePickerLibrary = findViewById(R.id.timePickerLibrary);
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
         btnDatePickerSimple.setOnClickListener(this);
         btnTimePickerSimple.setOnClickListener(this);
         btnDatePickerWidget.setOnClickListener(this);
         btnTimePickerWidget.setOnClickListener(this);
+        btnDatePickerLibrary.setOnClickListener(this);
+        btnTimePickerLibrary.setOnClickListener(this);
     }
 
     @Override
@@ -54,6 +63,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         switch (view.getId()) {
+
+            case R.id.datePickerLibrary:
+
+                CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment()
+                        .setThemeDark()
+                        .setOnDateSetListener(MainActivity.this);
+                cdp.show(getSupportFragmentManager(), "CalendarDatePickerDialog");
+                break;
             case R.id.btnDatepickerWidget:
 
                 startActivity(new Intent(this, DatePickerActivity.class));
@@ -107,6 +124,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE), false);
                 timePickerDialog.show();
                 break;
+            case R.id.timePickerLibrary:
+
+                RadialTimePickerDialogFragment rtpd = new RadialTimePickerDialogFragment()
+                        .setOnTimeSetListener(MainActivity.this)
+                        .setForced24hFormat();
+                rtpd.show(getSupportFragmentManager(), "RadialTimePickerDialog");
+                break;
         }
     }
 
@@ -141,4 +165,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragment.show(getSupportFragmentManager(), TimePickerDialog.class.getSimpleName());
     }
 
+    @SuppressLint("StringFormatMatches")
+    @Override
+    public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
+        textOutput.setText(getString(R.string.calendar_date_picker, year+1, monthOfYear, dayOfMonth));
+    }
+
+    @Override
+    public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
+        textOutput.setText(getString(R.string.times_radial_picker, hourOfDay, minute));
+    }
 }
