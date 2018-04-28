@@ -15,20 +15,16 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class DatePickerActivity extends AppCompatActivity {
-
     DatePicker simpleDatePicker;
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_picker);
-
         Objects.requireNonNull(getSupportActionBar()).setTitle("DatePickerWidget");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         simpleDatePicker = findViewById(R.id.datePickerWidget);
-
         simpleDatePicker.setSpinnersShown(true);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, -3);

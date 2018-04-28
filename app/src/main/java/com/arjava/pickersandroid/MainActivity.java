@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("StringFormatMatches")
     @Override
     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-        textOutput.setText(getString(R.string.calendar_date_picker, year + 1, monthOfYear, dayOfMonth));
+        textOutput.setText(getString(R.string.calendar_date_picker, year, monthOfYear+1, dayOfMonth));
     }
 
     @Override
